@@ -4,7 +4,12 @@ import 'package:tango/screens/home/components/translation_item.dart';
 class CarouselItem extends StatelessWidget {
   const CarouselItem({
     Key? key,
+    required this.index,
+    required this.currentCarouselIndex,
   }) : super(key: key);
+
+  final int index;
+  final int currentCarouselIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,9 @@ class CarouselItem extends StatelessWidget {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     children: [
+                      Chip(
+                        label: Text(index.toString()),
+                      ),
                       Text(
                         '単語',
                         style: Theme.of(context).textTheme.headline3!.copyWith(
@@ -45,38 +53,45 @@ class CarouselItem extends StatelessWidget {
                 const Divider(),
                 const TranslationItem(language: 'English'),
                 const TranslationItem(language: 'Indonesian'),
-                const TranslationItem(language: 'France'),
-                const Divider(),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            child: OutlinedButton(
-                              onPressed: () {},
-                              child: Text('Edit'.toUpperCase()),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: SizedBox(
-                            child: OutlinedButton(
-                              onPressed: () {},
-                              style: OutlinedButton.styleFrom(
-                                primary: Colors.red,
+                if (index == currentCarouselIndex)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                ),
+                                child: Text('Edit'.toUpperCase()),
                               ),
-                              child: Text('Delete'.toUpperCase()),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: SizedBox(
+                              child: OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  primary: Colors.red,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                ),
+                                child: Text('Delete'.toUpperCase()),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

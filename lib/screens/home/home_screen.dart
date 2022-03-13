@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tango/screens/home/components/carousel_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentCarouselIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +65,19 @@ class HomeScreen extends StatelessWidget {
             CarouselSlider(
               options: CarouselOptions(
                 height: 380,
-                enableInfiniteScroll: false,
                 enlargeCenterPage: true,
                 enlargeStrategy: CenterPageEnlargeStrategy.height,
+                onPageChanged: (int index, CarouselPageChangedReason reson) {
+                  setState(() {
+                    _currentCarouselIndex = index;
+                  });
+                },
               ),
-              items: [1, 2].map((int index) {
-                return const CarouselItem();
+              items: [0, 1].map((int index) {
+                return CarouselItem(
+                  index: index,
+                  currentCarouselIndex: _currentCarouselIndex,
+                );
               }).toList(),
             ),
           ],
