@@ -83,14 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Add Card'.toUpperCase()),
+        icon: const Icon(
           Icons.add,
           color: Colors.white,
         ),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () => Navigator.pushNamed(context, '/create'),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

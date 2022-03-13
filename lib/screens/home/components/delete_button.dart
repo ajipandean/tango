@@ -56,11 +56,10 @@ class DeleteButton extends StatelessWidget {
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: OutlinedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Colors.red,
+                        primary: Colors.red,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
