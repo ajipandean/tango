@@ -4,9 +4,11 @@ class TranslationItem extends StatelessWidget {
   const TranslationItem({
     Key? key,
     required this.language,
+    required this.translated,
   }) : super(key: key);
 
   final String language;
+  final String translated;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +27,11 @@ class TranslationItem extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyText1,
       ),
       trailing: Text(
-        'Vocabulary',
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1!
-            .copyWith(fontWeight: FontWeight.normal),
+        translated,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontWeight: FontWeight.normal,
+              color: Colors.grey.shade700,
+            ),
       ),
     );
   }

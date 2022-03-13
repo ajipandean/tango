@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tango/screens/home/components/delete_button.dart';
+import 'package:tango/screens/home/components/edit_button.dart';
 import 'package:tango/screens/home/components/translation_item.dart';
 
 class CarouselItem extends StatelessWidget {
@@ -34,14 +35,11 @@ class CarouselItem extends StatelessWidget {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     children: [
-                      Chip(
-                        label: Text(index.toString()),
-                      ),
                       Text(
                         '単語',
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              color: Theme.of(context).primaryColor,
                             ),
                       ),
                       const Text(
@@ -52,33 +50,32 @@ class CarouselItem extends StatelessWidget {
                   ),
                 ),
                 const Divider(),
-                const TranslationItem(language: 'English'),
-                const TranslationItem(language: 'Indonesian'),
+                const TranslationItem(
+                  language: 'English',
+                  translated: 'Vocabulary',
+                ),
+                const TranslationItem(
+                  language: 'Indonesian',
+                  translated: 'Kosa kata',
+                ),
+                const TranslationItem(
+                  language: 'Spanish',
+                  translated: 'Vocabulario',
+                ),
+                const TranslationItem(
+                  language: 'France',
+                  translated: 'Vocabulaire',
+                ),
                 if (index == currentCarouselIndex)
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              child: OutlinedButton(
-                                onPressed: () => Navigator.pushNamed(
-                                  context,
-                                  '/edit',
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                ),
-                                child: Text('Edit'.toUpperCase()),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const DeleteButton(),
+                        children: const <Widget>[
+                          EditButton(),
+                          SizedBox(width: 12),
+                          DeleteButton(),
                         ],
                       ),
                     ),
