@@ -63,7 +63,10 @@ class CarouselItem extends StatelessWidget {
                           Expanded(
                             child: SizedBox(
                               child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  '/edit',
+                                ),
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24),

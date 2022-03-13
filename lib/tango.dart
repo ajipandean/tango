@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tango/screens/create/create_screen.dart';
+import 'package:tango/screens/edit/edit_screen.dart';
 import 'package:tango/screens/home/home_screen.dart';
 
 class Tango extends StatelessWidget {
@@ -17,6 +18,7 @@ class Tango extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => const HomeScreen(),
         '/create': (BuildContext context) => const CreateScreen(),
+        '/edit': (BuildContext context) => const EditScreen(),
       },
     );
   }
