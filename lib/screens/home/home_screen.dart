@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tango/screens/home/components/account_chip.dart';
 import 'package:tango/screens/home/components/carousel_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,17 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
           'Tango',
           style: GoogleFonts.pacifico(),
         ),
-        actions: [
-          ActionChip(
-            backgroundColor: Colors.white,
-            avatar: CircleAvatar(
-              backgroundColor: Theme.of(context).primaryColor,
-              child: const Text('A'),
-            ),
-            label: const Text('ajipandean'),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 16),
+        actions: const <Widget>[
+          AccountChip(),
+          SizedBox(width: 16),
         ],
       ),
       body: SafeArea(
