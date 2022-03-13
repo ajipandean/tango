@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.white,
         ),
         backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, '/create'),
       ),
     );
   }
