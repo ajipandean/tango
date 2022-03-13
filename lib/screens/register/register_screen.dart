@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Login to Tango',
+                    'Register to Tango',
                     style: GoogleFonts.pacifico(fontSize: 40),
                   ),
                   const SizedBox(height: 24),
@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pop(context),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         primary: Theme.of(context).primaryColor,
@@ -93,14 +93,13 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      child: Text('Login'.toUpperCase()),
+                      child: Text('Register'.toUpperCase()),
                     ),
                   ),
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/register'),
+                      onPressed: () => Navigator.pop(context),
                       style: OutlinedButton.styleFrom(
                         elevation: 0,
                         primary: Theme.of(context).primaryColor,
@@ -108,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      child: Text('Register'.toUpperCase()),
+                      child: Text('Login'.toUpperCase()),
                     ),
                   )
                 ],
