@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tango/screens/home/components/delete_button.dart';
 import 'package:tango/screens/home/components/translation_item.dart';
 
 class CarouselItem extends StatelessWidget {
@@ -77,20 +78,7 @@ class CarouselItem extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Expanded(
-                            child: SizedBox(
-                              child: OutlinedButton(
-                                onPressed: () {},
-                                style: OutlinedButton.styleFrom(
-                                  primary: Colors.red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                ),
-                                child: Text('Delete'.toUpperCase()),
-                              ),
-                            ),
-                          ),
+                          const DeleteButton(),
                         ],
                       ),
                     ),
