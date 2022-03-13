@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tango/shared/widgets/form_input.dart';
 
 class EditScreen extends StatelessWidget {
   const EditScreen({Key? key}) : super(key: key);
@@ -32,60 +33,14 @@ class EditScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFormField(
+                      const FormInput(
+                        label: 'Japanese Moji',
                         initialValue: '単語',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'Japanese Moji',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      const FormInput(
+                        label: 'Pronounciation',
                         initialValue: 'tan go',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'Pronounciation',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                       const SizedBox(height: 24),
                       Text(
@@ -93,116 +48,24 @@ class EditScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      const FormInput(
+                        label: 'English',
                         initialValue: 'Vocabulary',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'English',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      const FormInput(
+                        label: 'Indonesian',
                         initialValue: 'Kosa kata',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'Indonesian',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      const FormInput(
+                        label: 'Spanish',
                         initialValue: 'Vocabulario',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'Spanish',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                       const SizedBox(height: 16),
-                      TextFormField(
+                      const FormInput(
+                        label: 'French',
                         initialValue: 'Vocabulaire',
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          labelText: 'France',
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0,
-                            ),
-                          ),
-                          border: const UnderlineInputBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),

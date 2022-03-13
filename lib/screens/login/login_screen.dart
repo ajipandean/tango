@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tango/shared/widgets/form_input.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,73 +20,31 @@ class LoginScreen extends StatelessWidget {
                     style: GoogleFonts.pacifico(fontSize: 40),
                   ),
                   const SizedBox(height: 24),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      border: const UnderlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.alternate_email,
-                        color: Theme.of(context).primaryColor,
-                      ),
+                  FormInput(
+                    label: 'Email',
+                    prefixIcon: Icon(
+                      Icons.alternate_email,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  FormInput(
+                    label: 'Password',
                     obscureText: true,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      border: const UnderlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Theme.of(context).primaryColor,
-                      ),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/',
+                        (Route<dynamic> route) => false,
+                      ),
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         primary: Theme.of(context).primaryColor,
@@ -99,8 +58,10 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () =>
-                          Navigator.pushNamed(context, '/register'),
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        '/register',
+                      ),
                       style: OutlinedButton.styleFrom(
                         elevation: 0,
                         primary: Theme.of(context).primaryColor,

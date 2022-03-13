@@ -46,7 +46,11 @@ class AccountChip extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/login',
+                        (Route<dynamic> route) => false,
+                      ),
                       style: OutlinedButton.styleFrom(
                         primary: Colors.red,
                         shape: RoundedRectangleBorder(
