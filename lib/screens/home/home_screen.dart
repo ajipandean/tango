@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tango/screens/home/components/account_chip.dart';
@@ -12,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   int _currentCarouselIndex = 0;
 
   @override
@@ -36,42 +39,53 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'My Cards',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    '5 cards in total',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
+              child: Text(
+                'My Cards',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             const SizedBox(height: 32),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 380,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                onPageChanged: (int index, CarouselPageChangedReason reson) {
-                  setState(() {
-                    _currentCarouselIndex = index;
-                  });
-                },
-              ),
-              items: [0, 1].map((int index) {
-                return CarouselItem(
-                  index: index,
-                  currentCarouselIndex: _currentCarouselIndex,
+            StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('cards').snapshots(),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Error');
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  );
+                }
+
+                return CarouselSlider(
+                  options: CarouselOptions(
+                    height: 380,
+                    enlargeCenterPage: true,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    onPageChanged:
+                        (int index, CarouselPageChangedReason reson) {
+                      setState(() {
+                        _currentCarouselIndex = index;
+                      });
+                    },
+                  ),
+                  items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    return CarouselItem(
+                      index: 0,
+                      currentCarouselIndex: _currentCarouselIndex,
+                    );
+                  }).toList(),
                 );
-              }).toList(),
+              },
             ),
           ],
         ),
