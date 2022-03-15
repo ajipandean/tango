@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tango/screens/home/components/account_chip.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -47,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 32),
             StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('cards').snapshots(),
+              stream: _firestore
+                  .collection('cards')
+                  .where('userId', isEqualTo: _auth.currentUser!.uid)
+                  .snapshots(),
               builder: (
                 BuildContext context,
                 AsyncSnapshot<QuerySnapshot> snapshot,
