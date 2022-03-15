@@ -71,9 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     enlargeStrategy: CenterPageEnlargeStrategy.scale,
                   ),
                   items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    String id = document.id;
                     Map<String, dynamic> data =
                         document.data() as Map<String, dynamic>;
-                    return CarouselItem(data: data);
+                    return CarouselItem(id: id, data: data);
                   }).toList(),
                 );
               },

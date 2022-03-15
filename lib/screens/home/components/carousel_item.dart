@@ -6,9 +6,11 @@ import 'package:tango/screens/home/components/translation_item.dart';
 class CarouselItem extends StatelessWidget {
   const CarouselItem({
     Key? key,
+    required this.id,
     required this.data,
   }) : super(key: key);
 
+  final String id;
   final Map<String, dynamic> data;
 
   @override
@@ -69,10 +71,10 @@ class CarouselItem extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const <Widget>[
-                        EditButton(),
-                        SizedBox(width: 12),
-                        DeleteButton(),
+                      children: <Widget>[
+                        const EditButton(),
+                        const SizedBox(width: 12),
+                        DeleteButton(id: id),
                       ],
                     ),
                   ),

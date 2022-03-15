@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class DeleteButton extends StatelessWidget {
-  const DeleteButton({
+  DeleteButton({
     Key? key,
+    required this.id,
   }) : super(key: key);
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +63,7 @@ class DeleteButton extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => _delete(context),
                       style: OutlinedButton.styleFrom(
                         primary: Colors.red,
                         shape: RoundedRectangleBorder(
@@ -74,5 +80,18 @@ class DeleteButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _delete(BuildContext context) async {
+    try {
+      _firestore.collection('cards').doc(id).delete();
+
+      Navigator.pop(context);
+    } on FirebaseException catch (error) {
+      print('Failed with error code: ${error.code}');
+
+      SnackBar snackBar = SnackBar(content: Text(error.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
