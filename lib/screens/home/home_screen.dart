@@ -25,9 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
           'Tango',
           style: GoogleFonts.pacifico(),
         ),
-        actions: const <Widget>[
+        actions: <Widget>[
           AccountChip(),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
       body: SafeArea(

@@ -6,9 +6,14 @@ import 'package:tango/screens/home/home_screen.dart';
 import 'package:tango/screens/login/login_screen.dart';
 import 'package:tango/screens/register/register_screen.dart';
 
-class Tango extends StatelessWidget {
-  Tango({Key? key}) : super(key: key);
+class Tango extends StatefulWidget {
+  const Tango({Key? key}) : super(key: key);
 
+  @override
+  State<Tango> createState() => _TangoState();
+}
+
+class _TangoState extends State<Tango> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override

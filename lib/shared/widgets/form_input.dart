@@ -7,18 +7,21 @@ class FormInput extends StatelessWidget {
     this.obscureText = false,
     this.prefixIcon,
     this.initialValue,
+    this.onChanged,
   }) : super(key: key);
 
   final String label;
   final bool obscureText;
   final Widget? prefixIcon;
   final String? initialValue;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
       obscureText: obscureText,
+      onChanged: onChanged,
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
