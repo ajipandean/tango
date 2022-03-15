@@ -15,8 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  int _currentCarouselIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,20 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 return CarouselSlider(
                   options: CarouselOptions(
                     height: 380,
-                    enlargeCenterPage: true,
-                    enlargeStrategy: CenterPageEnlargeStrategy.height,
-                    onPageChanged:
-                        (int index, CarouselPageChangedReason reson) {
-                      setState(() {
-                        _currentCarouselIndex = index;
-                      });
-                    },
+                    enableInfiniteScroll: false,
+                    enlargeStrategy: CenterPageEnlargeStrategy.scale,
                   ),
                   items: snapshot.data!.docs.map((DocumentSnapshot document) {
-                    return CarouselItem(
-                      index: 0,
-                      currentCarouselIndex: _currentCarouselIndex,
-                    );
+                    Map<String, dynamic> data =
+                        document.data() as Map<String, dynamic>;
+                    return CarouselItem(data: data);
                   }).toList(),
                 );
               },

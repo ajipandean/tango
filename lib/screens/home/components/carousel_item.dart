@@ -6,12 +6,10 @@ import 'package:tango/screens/home/components/translation_item.dart';
 class CarouselItem extends StatelessWidget {
   const CarouselItem({
     Key? key,
-    required this.index,
-    required this.currentCarouselIndex,
+    required this.data,
   }) : super(key: key);
 
-  final int index;
-  final int currentCarouselIndex;
+  final Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -36,50 +34,49 @@ class CarouselItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '単語',
+                        data['moji'],
                         style: Theme.of(context).textTheme.headline3!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).primaryColor,
                             ),
                       ),
-                      const Text(
-                        'tan go',
-                        style: TextStyle(color: Colors.grey),
+                      Text(
+                        data['pronounciation'],
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
                 ),
                 const Divider(),
-                const TranslationItem(
+                TranslationItem(
                   language: 'English',
-                  translated: 'Vocabulary',
+                  translated: data['english'],
                 ),
-                const TranslationItem(
+                TranslationItem(
                   language: 'Indonesian',
-                  translated: 'Kosa kata',
+                  translated: data['indonesian'],
                 ),
-                const TranslationItem(
+                TranslationItem(
                   language: 'Spanish',
-                  translated: 'Vocabulario',
+                  translated: data['spanish'],
                 ),
-                const TranslationItem(
+                TranslationItem(
                   language: 'France',
-                  translated: 'Vocabulaire',
+                  translated: data['french'],
                 ),
-                if (index == currentCarouselIndex)
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const <Widget>[
-                          EditButton(),
-                          SizedBox(width: 12),
-                          DeleteButton(),
-                        ],
-                      ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const <Widget>[
+                        EditButton(),
+                        SizedBox(width: 12),
+                        DeleteButton(),
+                      ],
                     ),
                   ),
+                ),
               ],
             ),
           ),
