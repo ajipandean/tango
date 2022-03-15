@@ -72,7 +72,7 @@ class CarouselItem extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        const EditButton(),
+                        EditButton(id: id),
                         const SizedBox(width: 12),
                         DeleteButton(id: id),
                       ],
