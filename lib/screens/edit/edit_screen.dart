@@ -145,6 +145,7 @@ class _EditScreenState extends State<EditScreen> {
         'french': _french,
       };
 
+      // select card by id, then update based on supplied fields
       await _firestore.collection('cards').doc(id).update(fields);
 
       Navigator.pop(context);

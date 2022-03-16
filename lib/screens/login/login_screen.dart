@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login(BuildContext context) async {
     try {
+      // sign the user in based on inputed email and password
       await _auth.signInWithEmailAndPassword(
         email: _email,
         password: _password,

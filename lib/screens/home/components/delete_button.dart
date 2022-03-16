@@ -84,6 +84,7 @@ class DeleteButton extends StatelessWidget {
 
   void _delete(BuildContext context) async {
     try {
+      // select card by id, then delete
       _firestore.collection('cards').doc(id).delete();
 
       Navigator.pop(context);

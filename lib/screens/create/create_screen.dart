@@ -97,7 +97,8 @@ class _CreateScreenState extends State<CreateScreen> {
 
   void _add(BuildContext context) async {
     try {
-      await _firestore.collection('cards').add(<String, dynamic>{
+      // create new collection with data supplied by fields
+      Map<String, dynamic> fields = <String, dynamic>{
         'moji': _moji,
         'pronounciation': _pronounciation,
         'english': _english,
@@ -105,7 +106,8 @@ class _CreateScreenState extends State<CreateScreen> {
         'spanish': _spanish,
         'french': _french,
         'userId': _auth.currentUser!.uid,
-      });
+      };
+      await _firestore.collection('cards').add(fields);
 
       Navigator.pop(context);
     } on FirebaseException catch (error) {

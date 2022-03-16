@@ -89,6 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _register(BuildContext context) async {
     try {
+      // register the user based on inputed email and password
       await _auth.createUserWithEmailAndPassword(
         email: _email,
         password: _password,

@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 32),
             StreamBuilder<QuerySnapshot>(
+              // get cards where userId equal to id of currently logged in user
               stream: _firestore
                   .collection('cards')
                   .where('userId', isEqualTo: _auth.currentUser!.uid)

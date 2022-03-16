@@ -70,6 +70,7 @@ class AccountChip extends StatelessWidget {
 
   void _logout(BuildContext context) async {
     try {
+      // sign out currently logged in user
       await _auth.signOut();
 
       Navigator.pushNamedAndRemoveUntil(
