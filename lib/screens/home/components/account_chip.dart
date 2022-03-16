@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AccountChip extends StatelessWidget {
-  const AccountChip({
+  AccountChip({
     Key? key,
   }) : super(key: key);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class AccountChip extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         child: const Text('A'),
       ),
-      label: const Text('ajipandean@outlook.com'),
+      label: Text(_auth.currentUser?.email ?? '-'),
       onPressed: () => showAccountBottomSheet(context),
     );
   }
@@ -41,16 +44,12 @@ class AccountChip extends StatelessWidget {
                     style: Theme.of(context).textTheme.overline,
                   ),
                   const SizedBox(height: 8),
-                  const Text('ajipandean@outlook.com'),
+                  Text(_auth.currentUser?.email ?? '-'),
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        '/login',
-                        (Route<dynamic> route) => false,
-                      ),
+                      onPressed: () => _logout(context),
                       style: OutlinedButton.styleFrom(
                         primary: Colors.red,
                         shape: RoundedRectangleBorder(
@@ -67,5 +66,23 @@ class AccountChip extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _logout(BuildContext context) async {
+    try {
+      // sign out currently logged in user
+      await _auth.signOut();
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/login',
+        (Route<dynamic> route) => false,
+      );
+    } on FirebaseException catch (error) {
+      print('Failed with error code: ${error.code}');
+
+      SnackBar snackBar = SnackBar(content: Text(error.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }

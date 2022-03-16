@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tango/screens/home/components/account_chip.dart';
@@ -12,7 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentCarouselIndex = 0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
           'Tango',
           style: GoogleFonts.pacifico(),
         ),
-        actions: const <Widget>[
+        actions: <Widget>[
           AccountChip(),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
         ],
       ),
       body: SafeArea(
@@ -36,42 +39,51 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'My Cards',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    '5 cards in total',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
+              child: Text(
+                'My Cards',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             const SizedBox(height: 32),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 380,
-                enlargeCenterPage: true,
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                onPageChanged: (int index, CarouselPageChangedReason reson) {
-                  setState(() {
-                    _currentCarouselIndex = index;
-                  });
-                },
-              ),
-              items: [0, 1].map((int index) {
-                return CarouselItem(
-                  index: index,
-                  currentCarouselIndex: _currentCarouselIndex,
+            StreamBuilder<QuerySnapshot>(
+              // get cards where userId equal to id of currently logged in user
+              stream: _firestore
+                  .collection('cards')
+                  .where('userId', isEqualTo: _auth.currentUser!.uid)
+                  .snapshots(),
+              builder: (
+                BuildContext context,
+                AsyncSnapshot<QuerySnapshot> snapshot,
+              ) {
+                if (snapshot.hasError) {
+                  return const Text('Error');
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  );
+                }
+
+                return CarouselSlider(
+                  options: CarouselOptions(
+                    height: 380,
+                    enableInfiniteScroll: false,
+                    enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                  ),
+                  items: snapshot.data!.docs.map((DocumentSnapshot document) {
+                    String id = document.id;
+                    Map<String, dynamic> data =
+                        document.data() as Map<String, dynamic>;
+                    return CarouselItem(id: id, data: data);
+                  }).toList(),
                 );
-              }).toList(),
+              },
             ),
           ],
         ),

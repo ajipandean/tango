@@ -1,9 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tango/shared/widgets/form_input.dart';
 
-class CreateScreen extends StatelessWidget {
+class CreateScreen extends StatefulWidget {
   const CreateScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CreateScreen> createState() => _CreateScreenState();
+}
+
+class _CreateScreenState extends State<CreateScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  String _moji = '';
+  String _pronounciation = '';
+  String _english = '';
+  String _indonesian = '';
+  String _spanish = '';
+  String _french = '';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +36,7 @@ class CreateScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.check),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => _add(context),
           ),
         ],
       ),
@@ -33,22 +50,40 @@ class CreateScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const FormInput(label: 'Japanese Moji'),
+                      FormInput(
+                        label: 'Japanese Moji',
+                        onChanged: (String value) => _moji = value,
+                      ),
                       const SizedBox(height: 16),
-                      const FormInput(label: 'Pronounciation'),
+                      FormInput(
+                        label: 'Pronounciation',
+                        onChanged: (String value) => _pronounciation = value,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         'Translation',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       const SizedBox(height: 16),
-                      const FormInput(label: 'English'),
+                      FormInput(
+                        label: 'English',
+                        onChanged: (String value) => _english = value,
+                      ),
                       const SizedBox(height: 16),
-                      const FormInput(label: 'Indonesian'),
+                      FormInput(
+                        label: 'Indonesian',
+                        onChanged: (String value) => _indonesian = value,
+                      ),
                       const SizedBox(height: 16),
-                      const FormInput(label: 'Spanish'),
+                      FormInput(
+                        label: 'Spanish',
+                        onChanged: (String value) => _spanish = value,
+                      ),
                       const SizedBox(height: 16),
-                      const FormInput(label: 'French'),
+                      FormInput(
+                        label: 'French',
+                        onChanged: (String value) => _french = value,
+                      ),
                     ],
                   ),
                 ),
@@ -58,5 +93,28 @@ class CreateScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _add(BuildContext context) async {
+    try {
+      // create new collection with data supplied by fields
+      Map<String, dynamic> fields = <String, dynamic>{
+        'moji': _moji,
+        'pronounciation': _pronounciation,
+        'english': _english,
+        'indonesian': _indonesian,
+        'spanish': _spanish,
+        'french': _french,
+        'userId': _auth.currentUser!.uid,
+      };
+      await _firestore.collection('cards').add(fields);
+
+      Navigator.pop(context);
+    } on FirebaseException catch (error) {
+      print('Failed with error code: ${error.code}');
+
+      SnackBar snackBar = SnackBar(content: Text(error.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
